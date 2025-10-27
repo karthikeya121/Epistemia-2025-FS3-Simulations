@@ -4,6 +4,14 @@ import random, math
 
 plt.rcParams["figure.figsize"] = (8,4)
 
+Condition1_RH = 'Input condition 1 RH here. **Integer value only**'
+Condition2_RH = 'Input condition 2 RH here. **Integer value only**'
+a_var = "Temp sensitivity **Integer value only**"
+b_var = "Humidity sensitivity **Integer value only**"
+t_days = 'Length of simulation **Integer value only**'
+
+N0 = int(1e6)
+
 def temp_preserve_factor(T, T_reference=25.0, Q10=2.0):
     temp_factor = Q10 ** ((T - T_reference) / 10.0)
     return 1.0 - temp_factor  # low T => strong preservation
@@ -16,14 +24,6 @@ def deterministic_decay(N0, d, t_days):
     t = np.linspace(0, t_days, 300)
     N = N0 * np.exp(-d * t)
     return t, N
-
-
-Condition1_RH = 'Input condition 1 RH here. **Integer value only**'
-Condition2_RH = 'Input condition 2 RH here. **Integer value only**'
-a_var = "Temp sensitivity **Integer value only**"
-b_var = "Humidity sensitivity **Integer value only**"
-t_days = 'Length of simulation **Integer value only**'
-N0 = int(1e6)
 
 conds = [
     {"T":2.0, "RH": Condition1_RH, "label":"2°C, 0% RH"},
