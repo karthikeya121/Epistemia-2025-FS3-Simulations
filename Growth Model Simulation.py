@@ -2,11 +2,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random, math
 
+# params
+arh_var = 'Enter ambient RH value here.'
+
+
 def q10_temp_factor(T, T_ref=25.0, Q10=2.0):
     return Q10 ** ((T - T_ref) / 10.0)
 
 def local_rh(ambient_rh):
-    return min(100.0, ambient_rh + 20.0)  # cloth retains +20% RH
+    return min(100.0, ambient_rh + arh_var)  # cloth retains +20% RH
 
 def simulate_cloth_logistic(N0=100.0, r_base=0.8, K=5e5, T=2.0, ambient_RH=0.0, t_max=30.0, dt=0.05):
     rh_local = local_rh(ambient_RH)
@@ -27,9 +31,10 @@ def simulate_cloth_logistic(N0=100.0, r_base=0.8, K=5e5, T=2.0, ambient_RH=0.0, 
         N[i] = max(0.0, N[i-1] + dN * dt)
     return t, N, rh_local, r_env
 
+#params 2
 conds = [
-    {"ambient_RH":0.0, "label":"2°C, 0% RH (cloth local RH)"},
-    {"ambient_RH":45.0, "label":"2°C, 45% RH (cloth local RH)"},
+    {"ambient_RH":0.0, "label":"2°C, 0% RH (cloth local RH)"}, # Condition 1
+    {"ambient_RH":45.0, "label":"2°C, 45% RH (cloth local RH)"}, # Condition 2
 ]
 
 results = []
